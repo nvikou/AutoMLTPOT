@@ -10,13 +10,13 @@ def data_processing (ws,ws_test):
     # Préparation des données
     L = ws.values.tolist()
     title_L = L[0]
-    L = L[0:]  # Correction pour ne pas inclure l'en-tête
+    L = L[1:]  # Correction pour ne pas inclure l'en-tête
     T = ws_test.values.tolist()
     title_T = T[0]
-    T = T[0:]  # Correction pour ne pas inclure l'en-tête
+    T = T[1:]  # Correction pour ne pas inclure l'en-tête
     # Nettoyage des données de test (suppression colonnes inutiles)
     for i in T:
-        del i[0:1]  # Suppression des 2 premières colonnes
+        del i[0:1]  # Suppression de la première colonne
     X = np.array(L)
     Y = np.array(T)
     return X , Y
