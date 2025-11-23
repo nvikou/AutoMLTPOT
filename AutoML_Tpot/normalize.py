@@ -41,7 +41,7 @@ def normalize_predictions_by_month(ws_test, predictions):
         df_test_original.loc[mask_complete, 'Prédiction'] = df_complete['Prédiction_raw'] / monthly_sum
 
         # Affichage vérification
-        print("Сумма прогнозов по месяцам  (полные месяцы) :")
+        print("Somme des prédictions par mois (mois complets) :")
         print(df_test_original[mask_complete].groupby('Mois')['Prédiction'].sum())
     else:
         print("Aucun mois complet trouvé pour la normalisation.")
@@ -49,9 +49,9 @@ def normalize_predictions_by_month(ws_test, predictions):
     # Les mois incomplets conservent leurs Prédiction_raw non normalisées
     incomplete_months = counts_per_month[counts_per_month != days_in_month].index
     if len(incomplete_months) > 0:
-        print("Неполные месяцы :")
+        print("Mois incomplets :")
         for m in incomplete_months:
-            print(f"  - {m} (количество дней : {counts_per_month[m]}, ожидаемые дни : {days_in_month[m]})")
+            print(f"  - {m} (nombre de jours : {counts_per_month[m]}, jours attendus : {days_in_month[m]})")
 
     return df_test_original
 
