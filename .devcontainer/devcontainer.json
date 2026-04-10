@@ -1,14 +1,10 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "hostRequirements": {
-    "cpus": 4
+  "name": "AutoMLTPOT",
+  "build": {
+    "dockerfile": "../Dockerfile"
   },
-  "updateContentCommand": "python3 -m pip install -r requirements.txt",
-  "postCreateCommand": "python3 -m pip install -r requirements.txt",
+  "postCreateCommand": "pip install --no-cache-dir -r requirements.txt",
   "customizations": {
-    "codespaces": {
-      "openFiles": []
-    },
     "vscode": {
       "extensions": [
         "ms-toolsai.jupyter",

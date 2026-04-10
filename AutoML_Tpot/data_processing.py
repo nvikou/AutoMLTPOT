@@ -1,23 +1,22 @@
 import pandas as pd
 import numpy as np
 
-# Fonction de traitement des données,la fonction rertourne X_features, y_target pour l entrainemment 
 
-def data_processing (ws,ws_test):
-    """Fonction de traitement des données la fonction rertourne X_features, y_target pour l entrainemment  ."""
-#ws = pd.read_excel(file_path, sheet_name="Massive for learning")
-#ws_test = pd.read_excel(file_path, sheet_name="Massive")
-    # Préparation des données
-    L = ws.values.tolist()
-    title_L = L[0]
-    L = L[1:]  # Correction pour ne pas inclure l'en-tête
-    T = ws_test.values.tolist()
-    title_T = T[0]
-    T = T[1:]  # Correction pour ne pas inclure l'en-tête
-    # Nettoyage des données de test (suppression colonnes inutiles)
-    for i in T:
-        del i[0:1]  # Suppression de la première colonne
-    X = np.array(L)
-    Y = np.array(T)
-    return X , Y
-# Eample d'utilisation X,Y = data_processing (ws,ws_test)
+def data_processing(ws, ws_test):
+    """Prépare les données d'entraînement et de test.
+
+    pd.read_excel() place déjà la première ligne en en-têtes,
+    donc ws.values ne contient que les données.
+
+    Retourne X (entraînement) et Y (test) sous forme de tableaux numpy.
+    La première colonne (souvent un identifiant / date) est supprimée
+    des DEUX jeux pour garder la cohérence.
+    """
+    X = ws.values  # pas de skip de la 1ère ligne — pandas l'a déjà fait
+    Y = ws_test.values
+
+    # Suppression de la première colonne (identifiant) sur les deux jeux
+    X = X[:, 1:]
+    Y = Y[:, 1:]
+
+    return np.array(X), np.array(Y)

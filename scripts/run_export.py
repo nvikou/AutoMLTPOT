@@ -67,28 +67,20 @@ def main():
 
         print("Appel de data_processing(ws, ws_test) ...")
         try:
-            result = data_processing.data_processing(ws, ws_test)
+            X, Y = data_processing.data_processing(ws, ws_test)
         except Exception as e:
             print("Erreur lors de l'appel à data_processing:", e)
             traceback.print_exc()
             return 5
 
-        # data_processing peut renvoyer X, Y ou autre chose; essayer de déballer
-        if isinstance(result, tuple) and len(result) >= 1:
-            X = result[0]
-            Y = result[1] if len(result) > 1 else None
-        else:
-            print("data_processing n'a pas renvoyé un tuple attendu. Valeur renvoyée:", type(result))
-            return 6
-
         X = np.asarray(X)
         print('X shape après data_processing:', X.shape)
 
-        # Par convention existante dans notebook: y_target = X[:,0]
-        if X.shape[1] < 1:
-            print("X n'a pas de colonne 0 pour la cible.")
+        if X.shape[1] < 2:
+            print("X n'a pas assez de colonnes.")
             return 7
 
+        # Première colonne = cible, le reste = features
         y_raw = X[:, 0]
         print('Exemples bruts de y (10 premiers):', y_raw[:10])
 
@@ -116,12 +108,8 @@ def main():
         y_valid = y_numeric[valid_idx].values
         print('Après filtrage: X_valid.shape =', X_valid.shape, 'y_valid.shape =', y_valid.shape)
 
-        # préparer X_features suivant la convention existante (X[:,2:]) si possible
-        if X_valid.shape[1] >= 3:
-            X_features = X_valid[:, 2:]
-        else:
-            # si peu de colonnes, prendre toutes sauf la cible
-            X_features = X_valid[:, 1:]
+        # préparer X_features (tout sauf la cible = colonne 0)
+        X_features = X_valid[:, 1:]
         print('X_features.shape =', X_features.shape)
 
         # conversion en float
