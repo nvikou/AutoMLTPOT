@@ -1,4 +1,4 @@
-# AutoMLTPOT
+# Automated-Machine-Learning-TPOT
 
 Ce dépôt contient un petit projet d'AutoML basé sur TPOT pour expérimenter la recherche automatique de pipelines de régression. Le workspace est configuré pour être utilisé avec VS Code Dev Containers / GitHub Codespaces et inclut des notebooks Jupyter pour reproduire les étapes de préparation des données, d'entraînement et d'export.
 Supposons que nous disposons d'un jeu de données contenant une variable d'intérêt et plusieurs facteurs.
